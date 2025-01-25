@@ -7,11 +7,11 @@ import { BookingsModule } from './bookings/booking.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql', 
-      host: 'localhost',
+      host: 'fdb1030.awardspace.net',
       port: 3306, 
-      username: 'root', 
-      password: '1234', 
-      database: 'matchable', 
+      username: '4580381_matchable', 
+      password: '1NR5.x*W5M2y)xGe', 
+      database: '4580381_matchable', 
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, 
     }),

@@ -15,7 +15,7 @@ export class Booking {
   @Column({ length: 20 })
   user_phone: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
   total_cost: number;
 
   @ManyToOne(() => Session, { onDelete: 'CASCADE' })
