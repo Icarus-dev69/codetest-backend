@@ -1,5 +1,6 @@
-import { Controller, Get, Query, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Get, Query, NotFoundException, Param, Post,Body } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
+import { CreateSessionDto } from './dto/create-session.dto';
 
 @Controller('sessions')
 export class SessionsController {
@@ -23,5 +24,10 @@ export class SessionsController {
       }
       throw error;
     }
+  }
+
+  @Post()
+  create(@Body() createSessionDto: CreateSessionDto) {
+    return this.sessionsService.create(createSessionDto);
   }
 }
