@@ -11,7 +11,11 @@ import { BookingsModule } from './bookings/booking.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres', // Use PostgreSQL
-        url: configService.get<string>('postgresql://root:YcIYSdGM4nuVjT14xtJk7dbRvx18fFLt@dpg-cuag47lds78s739msg0g-a/matchable0db'), // Use the connection string directly
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true, // Automatically create tables (for development only)
       }),
