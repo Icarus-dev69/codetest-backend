@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SessionsModule } from './sessions/sessions.module';
 import { BookingsModule } from './bookings/booking.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql', 
-      host: 'fdb1030.awardspace.net',
-      port: 3306, 
-      username: '4580381_matchable', 
-      password: '1NR5.x*W5M2y)xGe', 
-      database: '4580381_matchable', 
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, 
+    ConfigModule.forRoot(), // Load environment variables
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres', // Use PostgreSQL
+        url: configService.get<string>('postgresql://root:YcIYSdGM4nuVjT14xtJk7dbRvx18fFLt@dpg-cuag47lds78s739msg0g-a/matchable0db'), // Use the connection string directly
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true, // Automatically create tables (for development only)
+      }),
+      inject: [ConfigService],
     }),
     SessionsModule,
     BookingsModule,
